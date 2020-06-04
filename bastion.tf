@@ -83,3 +83,6 @@ resource "google_compute_region_autoscaler" "autoscaler_bas" {
         }
     }
 }
+
+## Things to add naybe
+# Health Check

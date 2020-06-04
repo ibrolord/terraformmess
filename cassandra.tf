@@ -83,3 +83,4 @@ resource "google_compute_region_autoscaler" "autoscaler_cas" {
         }
     }
 }
+
