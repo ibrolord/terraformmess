@@ -2,6 +2,10 @@ variable "var_project" {
         default = "ibrobaba"
     }
 
+variable "var_backend" {
+        default = "gke-from-scratch-terraform-state-ibro"
+    }
+
 variable "region" {
     default = "us-central1"
 }
@@ -55,6 +59,16 @@ variable "cassandra" {
 }
 
 variable "elasticsearch" {
+        type = map
+        default = {
+            ami = "ubuntu-os-cloud/ubuntu-1604-lts"
+            machine_type = "f1-micro"
+            ingress = ""
+            egress = ""
+        }
+}
+
+variable "bastion" {
         type = map
         default = {
             ami = "ubuntu-os-cloud/ubuntu-1604-lts"

@@ -1,3 +1,4 @@
+# VPC
 module "network" {
     source = "terraform-google-modules/network/google"
     version = "~> 2.3"
@@ -42,11 +43,12 @@ module "network" {
         },
     ]  
 
-    secondary_ranges = {
-        subnet-01 = []
-    }
-}
+#    secondary_ranges = {
+#        subnet-01 = []
+#    }
+#}
 
+# Route between Subnets
 module "network_routes" {
     source = "terraform-google-modules/network/google//modules/routes"
     version = "2.1.1"
@@ -64,7 +66,7 @@ module "network_routes" {
     ]
 }
 
-# create firewall to tags ssh https http icmp-subnet
+# Create firewall to tags ssh https http icmp-subnet
 module "re1-net-firewall" {
     source = "terraform-google-modules/network/google//modules/fabric-net-firewall"
     project_id = var.var_project
@@ -84,7 +86,8 @@ resource "google_compute_firewall" "allow-bastion-ssh" {
         ports = ["22"]
     }
 
-    target_tags = ["ssh"]
+    source_tags = ["bastion"]
+    target_tags = ["backend"]
 }
  
 
