@@ -1,3 +1,4 @@
+
 # VPC
 module "network" {
     source = "terraform-google-modules/network/google"
@@ -46,7 +47,7 @@ module "network" {
 #    secondary_ranges = {
 #        subnet-01 = []
 #    }
-#}
+}
 
 # Route between Subnets
 module "network_routes" {

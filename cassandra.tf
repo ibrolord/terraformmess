@@ -1,7 +1,7 @@
 resource "google_compute_instance_template" "instance_template_cas" {
-    count = 1
-    name = "cassandra-${var.var_company}-${count.index+1}"
-    description = "Autoscaling group for cassandra"
+
+    name = "cassandratemplate-${var.var_company}"
+    description = "Stateful Managed Instance group for Cassandra"
     region = var.region
     project = var.var_project
     tags = ["backend", "cassandra"]    
@@ -11,7 +11,7 @@ resource "google_compute_instance_template" "instance_template_cas" {
         tier = "backend"
     }
     
-    instance_description = "Cassandra in autoscale"
+    instance_description = "Cassandra in Stateful Deployment"
     machine_type = var.cassandra.machine_type
     
     scheduling {
@@ -27,12 +27,12 @@ resource "google_compute_instance_template" "instance_template_cas" {
 
     disk {
         auto_delete = false
-        disk_size_gb = "10"
+        disk_size_gb = var.cassandra.disk_size
         type = "PERSISTENT"
+        device_name = "cassandra-persdisk-${var.var_company}"
     }
 
     network_interface {
-        #network = "default"
         subnetwork_project = var.var_project
         network = module.network.network_name
         subnetwork = "subnet-priv-re1"
@@ -50,37 +50,42 @@ resource "google_compute_instance_template" "instance_template_cas" {
     service_account {
         scopes = ["userinfo-email", "compute-ro", "storage-ro"]    
     }
-
-}
+ 
+ }
 
 
 resource "google_compute_region_instance_group_manager" "instance_group_manager_cas" {
     name = "cassandra-group-manager"
     version {
-        instance_template = google_compute_instance_template.instance_template_cas[0].self_link
+        instance_template = google_compute_instance_template.instance_template_cas.self_link
     }
+
     base_instance_name = "cassandra-group-manager"
     region = var.region
     project = var.var_project
-}
+    provider = google-beta
+
+    update_policy {
+        type                         = "OPPORTUNISTIC"
+        instance_redistribution_type = "NONE"
+        minimal_action               = "REPLACE"
+        max_unavailable_fixed        = 0
+        max_surge_fixed              = 3
+        #min_ready_sec                = 50
+    }
 
 
-resource "google_compute_region_autoscaler" "autoscaler_cas" {
-    name = "cassandra-autoscaler"
-    count = 1
-    project = var.var_project
-    region = var.region
-    target = google_compute_region_instance_group_manager.instance_group_manager_cas.self_link
+    target_size = var.cassandra.amount
 
-    autoscaling_policy {
-        max_replicas = 5
-        min_replicas = 5
-        
-        cooldown_period = 60
-        
-        cpu_utilization {
-            target = "0.9"
-        }
+    stateful_disk {
+        #device_name = google_compute_instance_template.instance_template_ps.disk[0].device_name
+        device_name = "cassandra-persdisk-${var.var_company}"
     }
 }
 
+
+
+
+
+# I know this violates the DRY principle, planning to refactor with For Each, and more dynamic loops.
+# Also contemplating if to add this behind a load balancer or if this is a master / slave arhitecture

@@ -45,6 +45,8 @@ variable "postgresql" {
             machine_type = "f1-micro"
             ingress = ""
             egress = ""
+            amount = "2"
+            disk_size = "10"
         }
 }
 
@@ -55,6 +57,8 @@ variable "cassandra" {
             machine_type = "f1-micro"
             ingress = ""
             egress = ""
+            amount = "2"
+            disk_size = "10"
         }
 }
 
@@ -65,6 +69,8 @@ variable "elasticsearch" {
             machine_type = "f1-micro"
             ingress = ""
             egress = ""
+            amount = "2"
+            disk_size = "10"
         }
 }
 
@@ -73,6 +79,8 @@ variable "bastion" {
         default = {
             ami = "ubuntu-os-cloud/ubuntu-1604-lts"
             machine_type = "f1-micro"
+            addr_type = "EXTERNAL"
+            ip_addr = "10.0.42.42"
             ingress = ""
             egress = ""
         }

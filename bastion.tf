@@ -1,3 +1,10 @@
+
+resource "google_compute_address" "static" {
+  name = "bastion-staticips-${var.var_company}"
+  project = var.var_project
+  region = var.region
+}
+
 resource "google_compute_instance_template" "instance_template_bas" {
     count = 1
     name = "bastion-${var.var_company}-${count.index+1}"
@@ -37,6 +44,9 @@ resource "google_compute_instance_template" "instance_template_bas" {
         network = module.network.network_name
         subnetwork = "subnet-pub-re1"
         #subnetwork = module.network.subnets[0].subnet_name
+        access_config {
+            nat_ip = google_compute_address.static.address
+        }
     }
 
     lifecycle {
