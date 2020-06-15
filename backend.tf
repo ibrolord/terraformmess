@@ -1,7 +1,6 @@
 terraform {
     backend "gcs" {
-        bucket = "gke-from-scratch-terraform-state-ibro"
+        bucket = "ot-core-share-terraform"
         prefix = "terraform2"
-        #credentials = "account.json"
     }
 }

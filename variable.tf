@@ -1,9 +1,9 @@
 variable "var_project" {
-        default = "ibrobaba"
+        default = "otl-eng-core-share-ops"
     }
 
-variable "var_backend" {
-        default = "gke-from-scratch-terraform-state-ibro"
+variable "backend_bucket" {
+        default = "ot-core-share-terraform"
     }
 
 variable "region" {
