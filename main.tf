@@ -1,4 +1,3 @@
-
 # VPC
 module "network" {
     source = "terraform-google-modules/network/google"
