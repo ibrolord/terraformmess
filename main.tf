@@ -1,8 +1,4 @@
-provider "google" {
-    credentials = file("~/terraform_account.json")
-    region = var.region
-    project = var.var_project
-}
+
 
 # VPC
 module "network" {
