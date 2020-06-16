@@ -2,10 +2,6 @@ variable "var_project" {
         default = "otl-eng-core-share-ops"
     }
 
-# variable "var_backend" {
-#         default = "gke-from-scratch-terraform-state-ibro"
-#     }
-
 variable "region" {
     default = "us-central1"
 }
