@@ -20,7 +20,7 @@ source ~/.bash_profile
 # Init gcloud with project otl-eng-core-share-ops 
 gcloud init
 # Download terraform credentials
-gcloud iam service-accounts keys create ${HOME}/terraform.json --iam-account terraform@${projectname}.iam.gserviceaccount.com
+gcloud iam service-accounts keys create ${HOME}/terraform.json --iam-account terraform@otl-eng-core-share-ops.iam.gserviceaccount.com
 export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/terraform.json"  
 ```
 
@@ -31,3 +31,4 @@ brew install terraform
 ```
 
 ![Network Diagram](/network_diagram.png)
+https://app.lucidchart.com/invitations/accept/dc617425-e474-4519-8f98-90a801354acf
