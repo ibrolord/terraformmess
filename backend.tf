@@ -1,6 +1,6 @@
 terraform {
     backend "gcs" {
         bucket = "ot-core-share-terraform"
-        prefix = "backend-services-v1"
+        prefix = "terraform2"
     }
 }

@@ -2,6 +2,10 @@ variable "var_project" {
         default = "otl-eng-core-share-ops"
     }
 
+variable "backend_bucket" {
+        default = "ot-core-share-terraform"
+    }
+
 variable "region" {
     default = "us-central1"
 }
