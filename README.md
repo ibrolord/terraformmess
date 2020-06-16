@@ -27,3 +27,5 @@ gcloud init
 brew install terraform
 ```
 2. 
+
+![GitHub Logo](/GCP\ sketch.pdf)
