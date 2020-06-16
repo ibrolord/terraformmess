@@ -28,4 +28,4 @@ brew install terraform
 ```
 2. 
 
-![Network Diagram](/network_diagram.pdf)
+![Network Diagram](/network_diagram.png)
