@@ -30,5 +30,5 @@ export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/terraform.json"
 brew install terraform
 ```
 
+## Network Diagram ![EDIT](https://app.lucidchart.com/invitations/accept/dc617425-e474-4519-8f98-90a801354acf)
 ![Network Diagram](/network_diagram.png)
-https://app.lucidchart.com/invitations/accept/dc617425-e474-4519-8f98-90a801354acf
