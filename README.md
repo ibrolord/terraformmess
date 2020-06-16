@@ -28,4 +28,4 @@ brew install terraform
 ```
 2. 
 
-![GitHub Logo](/GCP\ sketch.pdf)
+![Network Diagram](/network_diagram.pdf)
