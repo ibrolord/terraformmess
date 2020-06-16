@@ -1,4 +1,4 @@
-## Installing Google SDK (macOS)
+## Setting up Google SDK (macOS)
 1. Make sure you have python version between 3.5 to 3.7, and 2.7.9 or higher
 ```
 python -V
@@ -15,10 +15,13 @@ tar -xzf ~/Downloads/google-cloud-sdk.tar.gz
 # Source the installed commands, or start a new terminal
 source ~/.bash_profile 
 ```
-3. Initialize the Google Cloud SDK
+3. Set up the Google Cloud SDK
 ```
+# Init gcloud with project otl-eng-core-share-ops 
 gcloud init
-# For project, choose otl-eng-core-share-ops 
+# Download terraform credentials
+gcloud iam service-accounts keys create ${HOME}/terraform.json --iam-account terraform@${projectname}.iam.gserviceaccount.com
+export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/terraform.json"  
 ```
 
 ## Setting up Terraform (macOS)
@@ -26,6 +29,5 @@ gcloud init
 ```
 brew install terraform
 ```
-2. 
 
 ![Network Diagram](/network_diagram.png)
