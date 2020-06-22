@@ -1,4 +1,3 @@
-# VPC ( 2 regions with a Public and Private Subnet )
 module "network" {
     source = "terraform-google-modules/network/google"
     version = "~> 2.3"
