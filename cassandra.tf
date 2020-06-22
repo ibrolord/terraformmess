@@ -2,8 +2,6 @@ resource "google_compute_instance_template" "instance_template_cas" {
 
     name = "cassandratemplate-${var.var_company}"
     description = "Stateful Managed Instance group for Cassandra"
-    region = var.region
-    project = var.var_project
     tags = ["backend", "cassandra"]    
 
     labels = {
@@ -78,7 +76,6 @@ resource "google_compute_region_instance_group_manager" "instance_group_manager_
     target_size = var.cassandra.amount
 
     stateful_disk {
-        #device_name = google_compute_instance_template.instance_template_ps.disk[0].device_name
         device_name = "cassandra-persdisk-${var.var_company}"
     }
 }

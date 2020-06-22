@@ -2,8 +2,6 @@ resource "google_compute_instance_template" "instance_template_es" {
 
     name = "elasticsearchtemplate-${var.var_company}"
     description = "Stateful Managed Instance group for Elastic Search"
-    region = var.region
-    project = var.var_project
     tags = ["backend", "elasticsearch"]    
 
     labels = {

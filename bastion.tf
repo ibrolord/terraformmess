@@ -1,16 +1,7 @@
-
-resource "google_compute_address" "static" {
-  name = "bastion-staticips-${var.var_company}"
-  project = var.var_project
-  region = var.region
-}
-
 resource "google_compute_instance_template" "instance_template_bas" {
     count = 1
     name = "bastion-${var.var_company}-${count.index+1}"
     description = "Autoscaling group for Bastion"
-    region = var.region
-    project = var.var_project
     tags = ["ssh", "bastion"]    
 
     labels = {

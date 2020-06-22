@@ -2,8 +2,6 @@ resource "google_compute_instance_template" "instance_template_ps" {
 
     name = "postgresqltemplate-${var.var_company}"
     description = "Stateful Managed Instance group for Postgresql"
-    region = var.region
-    project = var.var_project
     tags = ["backend", "postgresql"]    
 
     labels = {
