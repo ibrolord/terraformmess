@@ -70,6 +70,7 @@ module "network_routes" {
 resource "google_compute_router" "router" {
   name    = "router-${var.var_company}"
   network = module.network.network_name 
+  description = "Cloud Router to use with Cloud NAT"
 
   bgp {
     asn = 64514
@@ -90,6 +91,8 @@ module "re1-net-firewall" {
 resource "google_compute_firewall" "allow-bastion-ssh" {
     name = "${var.var_company}-fw-allow-bastion"
     network = module.network.network_name 
+    description = "Allows Bastion tags communicate with Backend tags"
+
     allow {
         protocol = "tcp"
         ports = ["22"]
@@ -99,9 +102,78 @@ resource "google_compute_firewall" "allow-bastion-ssh" {
     target_tags = ["backend"]
 }
 
+# Add Cassandra firewall rule
+resource "google_compute_firewall" "allow-cassandra-ssh" {
+    name = "${var.var_company}-fw-allow-cassandra"
+    network = module.network.network_name 
+    description = "Allow communication within Cassandra cluster"
+
+    allow {
+        protocol = "tcp"
+        ports = ["9042", "7002", "7000", "9160", "7001", "57311", "57312", "8080", "7199"]
+    }
+# List of Cassandra ports came from https://stackoverflow.com/questions/2359159/cassandra-port-usage-how-are-the-ports-used 
+# ^^^ https://cassandra.apache.org/doc/latest/faq/index.html#what-ports
+
+    allow {
+        protocol = "icmp"
+    }
+
+    source_tags = ["cassandra"]
+    target_tags = ["cassandra"]
+}
+
+# Add Postgresql firewall rule
+resource "google_compute_firewall" "allow-postgresql-ssh" {
+    name = "${var.var_company}-fw-allow-postgresql"
+    network = module.network.network_name 
+    description = "Allow Commuincation within Postgresql"
+
+    allow {
+        protocol = "tcp"
+        ports = ["5432", "5433"]
+    }
+
+    source_tags = ["postgresql"]
+    target_tags = ["postgresql"]
+}
+
+# Add Bastion Postgresql firewall rule egress (Needed for Ansible)
+resource "google_compute_firewall" "allow-postgresql-egress" {
+    name = "${var.var_company}-fw-allow-bastion-postgresql-egress"
+    network = module.network.network_name 
+    description = "Allow Postgresql make egress communications"
+
+    allow {
+        protocol = "tcp"
+        ports = ["5432", "5433"]
+    }
+
+    direction = "EGRESS"
+
+    target_tags = ["postgresql"]
+    destination_ranges = [var.re1_private_subnet[0]]
+}
+
+# Add ElasticSearch firewall rule
+resource "google_compute_firewall" "allow-elasticsearch-ssh" {
+    name = "${var.var_company}-fw-allow-elasticsearch"
+    network = module.network.network_name 
+    description = "Allow communication within ES Cluster"
+
+    allow {
+        protocol = "tcp"
+        ports = ["9300", "9200"]
+    }
+
+    source_tags = ["elasticsearch"]
+    target_tags = ["elasticsearch"]
+}
+
 # External IP Address for Bastion
 resource "google_compute_address" "static" {
   name = "bastion-staticips-${var.var_company}"
+  description = "External IP pool for Bastion machine"
 }
 
 # Cloud NAT for only 

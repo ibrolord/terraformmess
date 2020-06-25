@@ -17,6 +17,8 @@ resource "google_compute_instance_template" "instance_template_bas" {
         on_host_maintenance = "MIGRATE"
     }
 
+    metadata_startup_script = " sudo apt install software-properties-common zip unzip -y && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt update && sudo apt install ansible -y && sudo sed -i s/'^#host_key_checking = False'/'host_key_checking = False'/g /etc/ansible/ansible.cfg" 
+
     disk {
         source_image = var.bastion.ami
         auto_delete = true
@@ -63,6 +65,9 @@ resource "google_compute_region_instance_group_manager" "instance_group_manager_
     base_instance_name = "bastion-group-manager"
     region = var.region
     project = var.var_project
+
+    depends_on = [google_compute_instance_template.instance_template_bas]
+
 }
 
 

@@ -41,11 +41,11 @@ variable "re2_public_subnet" {
 variable "postgresql" {
         type = map
         default = {
-            ami = "ubuntu-os-cloud/ubuntu-1604-lts"
-            machine_type = "f1-micro"
+            ami = "ubuntu-os-cloud/ubuntu-1804-lts"
+            machine_type = "n1-standard-16"
             ingress = ""
             egress = ""
-            amount = "2"
+            amount = "7"
             disk_size = "10"
         }
 }
@@ -54,11 +54,11 @@ variable "cassandra" {
         type = map
         default = {
             ami = "ubuntu-os-cloud/ubuntu-1604-lts"
-            machine_type = "f1-micro"
+            machine_type = "n1-standard-16"
             ingress = ""
             egress = ""
-            amount = "2"
-            disk_size = "10"
+            amount = "5" 
+            disk_size = "50"
         }
 }
 
@@ -66,7 +66,7 @@ variable "elasticsearch" {
         type = map
         default = {
             ami = "ubuntu-os-cloud/ubuntu-1604-lts"
-            machine_type = "f1-micro"
+            machine_type = "n1-standard-16"
             ingress = ""
             egress = ""
             amount = "2"
@@ -77,8 +77,8 @@ variable "elasticsearch" {
 variable "bastion" {
         type = map
         default = {
-            ami = "ubuntu-os-cloud/ubuntu-1604-lts"
-            machine_type = "f1-micro"
+            ami = "ubuntu-os-cloud/ubuntu-1804-lts"
+            machine_type = "n1-standard-2"
             addr_type = "EXTERNAL"
             ip_addr = "10.0.42.42"
             ingress = ""

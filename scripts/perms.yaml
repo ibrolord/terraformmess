@@ -1,5 +1,5 @@
 description: Permissions required for Terraform to run
-etag: BwWoraniic4=
+etag: BwWora7F210=
 includedPermissions:
 - compute.acceleratorTypes.get
 - compute.acceleratorTypes.list
@@ -9,6 +9,7 @@ includedPermissions:
 - compute.routers.create
 - compute.routers.update
 - compute.routers.delete
+- compute.firewalls.update
 - compute.addresses.list
 - compute.addresses.use
 - compute.autoscalers.create
