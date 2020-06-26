@@ -1,6 +1,7 @@
 resource "google_compute_instance_template" "instance_template_ps" {
+    count = 1
 
-    name = "postgresqltemplate-${var.var_company}"
+    name = "postgresqltemplate-${var.var_company}-${count.index+1}"
     description = "Stateful Managed Instance group for Postgresql"
     tags = ["backend", "postgresql"]    
 
@@ -54,8 +55,10 @@ resource "google_compute_instance_template" "instance_template_ps" {
 
 resource "google_compute_region_instance_group_manager" "instance_group_manager_ps" {
     name = "postgresql-group-manager"
+    count = 1
+
     version {
-        instance_template = google_compute_instance_template.instance_template_ps.self_link
+        instance_template = google_compute_instance_template.instance_template_ps[count.index].self_link
     }
 
     base_instance_name = "postgresql-group-manager"

@@ -53,7 +53,7 @@ variable "postgresql" {
 variable "cassandra" {
         type = map
         default = {
-            ami = "ubuntu-os-cloud/ubuntu-1604-lts"
+            ami = "ubuntu-os-cloud/ubuntu-1804-lts"
             machine_type = "n1-standard-16"
             ingress = ""
             egress = ""
@@ -65,7 +65,7 @@ variable "cassandra" {
 variable "elasticsearch" {
         type = map
         default = {
-            ami = "ubuntu-os-cloud/ubuntu-1604-lts"
+            ami = "ubuntu-os-cloud/ubuntu-1804-lts"
             machine_type = "n1-standard-16"
             ingress = ""
             egress = ""

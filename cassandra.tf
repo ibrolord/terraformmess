@@ -1,6 +1,8 @@
 resource "google_compute_instance_template" "instance_template_cas" {
+    count = 1
+    name = "cassandratemplate-${var.var_company}-${count.index+1}"
 
-    name = "cassandratemplate-${var.var_company}"
+   # name = "cassandratemplate-${var.var_company}"
     description = "Stateful Managed Instance group for Cassandra"
     tags = ["backend", "cassandra"]    
 
@@ -54,8 +56,9 @@ resource "google_compute_instance_template" "instance_template_cas" {
 
 resource "google_compute_region_instance_group_manager" "instance_group_manager_cas" {
     name = "cassandra-group-manager"
+    count = 1
     version {
-        instance_template = google_compute_instance_template.instance_template_cas.self_link
+        instance_template = google_compute_instance_template.instance_template_cas[count.index].self_link
     }
 
     base_instance_name = "cassandra-group-manager"

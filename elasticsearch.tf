@@ -1,6 +1,6 @@
 resource "google_compute_instance_template" "instance_template_es" {
-
-    name = "elasticsearchtemplate-${var.var_company}"
+    count = 1
+    name = "elasticsearchtemplate-${var.var_company}-${count.index+1}"
     description = "Stateful Managed Instance group for Elastic Search"
     tags = ["backend", "elasticsearch"]    
 
@@ -53,8 +53,10 @@ resource "google_compute_instance_template" "instance_template_es" {
 
 resource "google_compute_region_instance_group_manager" "instance_group_manager_es" {
     name = "elasticsearch-group-manager"
+    count = 1
+    
     version {
-        instance_template = google_compute_instance_template.instance_template_es.self_link
+        instance_template = google_compute_instance_template.instance_template_es[count.index].self_link
     }
 
     base_instance_name = "elasticsearch-group-manager"
