@@ -59,8 +59,9 @@ resource "google_compute_instance_template" "instance_template_bas" {
 
 resource "google_compute_region_instance_group_manager" "instance_group_manager_bas" {
     name = "bastion-group-manager"
+    count = 1
     version {
-        instance_template = google_compute_instance_template.instance_template_bas[0].self_link
+        instance_template = google_compute_instance_template.instance_template_bas[count.index].self_link
     }
     base_instance_name = "bastion-group-manager"
     region = var.region
@@ -76,7 +77,7 @@ resource "google_compute_region_autoscaler" "autoscaler_bas" {
     count = 1
     project = var.var_project
     region = var.region
-    target = google_compute_region_instance_group_manager.instance_group_manager_bas.self_link
+    target = google_compute_region_instance_group_manager.instance_group_manager_bas[count.index].self_link
 
     autoscaling_policy {
         max_replicas = 1
