@@ -38,3 +38,6 @@ output "subnets_flow_logs" {
   description = "Whether the subnets will have VPC flow logs enabled"
 }
 
+// output "bastion_group_mgr" {
+//    value =  google_compute_region_instance_group_manager.instance_group_manager_bas.self_link
+// }

@@ -54,7 +54,7 @@ resource "google_compute_instance_template" "instance_template_es" {
 resource "google_compute_region_instance_group_manager" "instance_group_manager_es" {
     name = "elasticsearch-group-manager"
     count = 1
-    
+
     version {
         instance_template = google_compute_instance_template.instance_template_es[count.index].self_link
     }
@@ -74,7 +74,7 @@ resource "google_compute_region_instance_group_manager" "instance_group_manager_
     }
 
 
-    target_size = var.cassandra.amount
+    target_size = var.elasticsearch.amount
 
     stateful_disk {
         #device_name = google_compute_instance_template.instance_template_ps.disk[0].device_name

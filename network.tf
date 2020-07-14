@@ -162,12 +162,53 @@ resource "google_compute_firewall" "allow-elasticsearch-ssh" {
 
     allow {
         protocol = "tcp"
-        ports = ["9300", "9200"]
+        ports = ["9300", "9301", "9201", "9200", "54328"]
+    }
+
+    allow {
+        protocol = "icmp"
     }
 
     source_tags = ["elasticsearch"]
     target_tags = ["elasticsearch"]
 }
+
+
+# Add ElasticSearch AutoDiscovery egress
+resource "google_compute_firewall" "allow-elasticsearch-egress" {
+    name = "${var.var_company}-fw-allow-bastion-elasticsearch-egress"
+    network = module.network.network_name 
+    description = "Allow elasticsearch make egress communications"
+
+    allow {
+        protocol = "tcp"
+        ports = ["54328", "9300", "9301", "9200"]
+    }
+
+    direction = "EGRESS"
+
+    target_tags = ["elasticsearch"]
+    destination_ranges = [var.re1_private_subnet[0]]
+}
+
+
+# Egress from cluster to backend (postgresql, ES, Cas)
+resource "google_compute_firewall" "allow-cluster-egress" {
+    name = "${var.var_company}-fw-allow-cluster-backend-egress"
+    network = module.network.network_name 
+    description = "Allow the cluster make egress communications"
+
+    allow {
+        protocol = "tcp"
+        ports = ["54328", "9300", "9301", "9200", "9042", "7002", "7000", "9160", "7001", "57311", "57312", "8080", "7199", "5432", "5433", ]
+    }
+
+    direction = "EGRESS"
+
+    target_tags = ["backend"]
+    destination_ranges = [var.re1_private_subnet[0]]
+}
+
 
 # External IP Address for Bastion
 resource "google_compute_address" "static" {

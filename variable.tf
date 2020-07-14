@@ -45,7 +45,7 @@ variable "postgresql" {
             machine_type = "n1-standard-16"
             ingress = ""
             egress = ""
-            amount = "7"
+            amount = "3"
             disk_size = "10"
         }
 }
@@ -57,7 +57,7 @@ variable "cassandra" {
             machine_type = "n1-standard-16"
             ingress = ""
             egress = ""
-            amount = "5" 
+            amount = "3" 
             disk_size = "50"
         }
 }
@@ -66,10 +66,10 @@ variable "elasticsearch" {
         type = map
         default = {
             ami = "ubuntu-os-cloud/ubuntu-1804-lts"
-            machine_type = "n1-standard-16"
+            machine_type = "n1-standard-1"
             ingress = ""
             egress = ""
-            amount = "2"
+            amount = "3"
             disk_size = "10"
         }
 }
@@ -84,4 +84,15 @@ variable "bastion" {
             ingress = ""
             egress = ""
         }
+}
+
+variable "gke" {
+    type = map
+    default = {
+        node_vers = "1.15.12-gke.6"
+        release = "REGULAR"
+        node_amt = 3
+        node_max = 6
+        machine_type = "n1-standard-2"
+    }
 }

@@ -1,5 +1,5 @@
 resource "google_compute_instance_template" "instance_template_bas" {
-    count = 1
+    count = 2
     name = "bastion-${var.var_company}-${count.index+1}"
     description = "Autoscaling group for Bastion"
     tags = ["ssh", "bastion"]    
@@ -17,7 +17,7 @@ resource "google_compute_instance_template" "instance_template_bas" {
         on_host_maintenance = "MIGRATE"
     }
 
-    metadata_startup_script = " sudo apt install software-properties-common zip unzip -y && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt update && sudo apt install ansible -y && sudo sed -i s/'^#host_key_checking = False'/'host_key_checking = False'/g /etc/ansible/ansible.cfg" 
+    metadata_startup_script = "sudo apt install software-properties-common zip unzip -y && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt update && sudo apt install ansible -y && sudo sed -i s/'^#host_key_checking = False'/'host_key_checking = False'/g /etc/ansible/ansible.cfg" 
 
     disk {
         source_image = var.bastion.ami
@@ -55,7 +55,6 @@ resource "google_compute_instance_template" "instance_template_bas" {
     }
 
 }
-
 
 resource "google_compute_region_instance_group_manager" "instance_group_manager_bas" {
     name = "bastion-group-manager"

@@ -7,7 +7,7 @@ resource "google_compute_instance_template" "instance_template_ps" {
 
     labels = {
         environment = "prod"
-        tier = "backend"
+        tier = "backend2"
     }
     
     instance_description = "Postgresql in Stateful Deployment"
