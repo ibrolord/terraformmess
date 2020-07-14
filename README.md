@@ -30,6 +30,15 @@ export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/terraform.json"
 brew install terraform
 ```
 
+## File Structure
+Pending complete refactoring, this has a backend to store tstate in google cloud storage, and files to create bastion, cassandra, elastocsearch, posthresql and gke. 
+
+Plans to modularize the terraform IaC is pending
+
+There are some hardcoded values with regards to subnet that will be removed
+
+Some issues may occur due to permissions, update scrips/perms.yaml with the new etag (command found in scripts/create_terraform_svracct.sh) and update the iam for tha service account
+
 ## Network Diagram [EDIT](https://app.lucidchart.com/invitations/accept/dc617425-e474-4519-8f98-90a801354acf)
 ![Network Diagram](/network_diagram.png)
 
