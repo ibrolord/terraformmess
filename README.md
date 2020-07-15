@@ -31,13 +31,18 @@ brew install terraform
 ```
 
 ## File Structure
-Pending complete refactoring, this has a backend to store tstate in google cloud storage, and files to create bastion, cassandra, elastocsearch, posthresql and gke. 
+Pending complete refactoring, this has a backend to store tstate in google cloud storage, and files to create bastion, cassandra, elasticsearch, postgresql and gke. 
 
 Plans to modularize the terraform IaC is pending
 
 There are some hardcoded values with regards to subnet that will be removed
 
-Some issues may occur due to permissions, update scrips/perms.yaml with the new etag (command found in scripts/create_terraform_svracct.sh) and update the iam for tha service account
+Some issues may occur due to permissions, update scrips/perms.yaml with the new etag (command found in scripts/create_terraform_svracct.sh) and update the iam for that service account.
+
+Configuration Management on Postgresql, Cassandra, Elasticsearch is done with Ansible Roles. Check the Ansible repo in gitlab
+
+**This IaC is not Prod ready and is a rough draft**
+
 
 ## Network Diagram [EDIT](https://app.lucidchart.com/invitations/accept/dc617425-e474-4519-8f98-90a801354acf)
 ![Network Diagram](/network_diagram.png)

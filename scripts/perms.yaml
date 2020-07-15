@@ -1,5 +1,5 @@
 description: Permissions required for Terraform to run
-etag: BwWp8pDlEL0=
+etag: BwWp820cPko=
 includedPermissions:
 - compute.acceleratorTypes.get
 - compute.acceleratorTypes.list
@@ -8,6 +8,7 @@ includedPermissions:
 - container.operations.get
 - container.clusters.update
 - compute.addresses.create
+- compute.subnetworks.update
 - compute.addresses.get
 - container.clusters.get
 - compute.routers.get

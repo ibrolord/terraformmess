@@ -42,14 +42,14 @@ resource "google_container_cluster" "primary" {
         enabled = true
         resource_limits {
             resource_type = "memory"
-            minimum = 10
-            maximum = 100   
+            minimum = var.gke.min_res_mem
+            maximum = var.gke.max_res_cpu   
             }
 
         resource_limits {
             resource_type = "cpu"
-            minimum = 1
-            maximum = 10
+            minimum = var.gke.min_res_cpu
+            maximum = var.gke.max_res_cpu
             }
 
         }
@@ -87,6 +87,11 @@ resource "google_container_node_pool" "primary_nodes" {
         oauth_scopes = [
             "https://www.googleapis.com/auth/logging.write",
             "https://www.googleapis.com/auth/monitoring",
+            "https://www.googleapis.com/auth/devstorage.read_only",
+            "https://www.googleapis.com/auth/servicecontrol",
+            "https://www.googleapis.com/auth/service.management.readonly",
+            "https://www.googleapis.com/auth/trace.append"
+
         ]
 
         labels = {
@@ -102,10 +107,7 @@ resource "google_container_node_pool" "primary_nodes" {
         metadata = {
           disable-legacy-endpoints = "true"
         }
-
  
   }
-
-
-    }
+}
 

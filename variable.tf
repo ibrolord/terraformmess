@@ -91,6 +91,10 @@ variable "gke" {
     default = {
         node_vers = "1.15.12-gke.6"
         release = "REGULAR"
+        max_res_cpu = 100
+        min_res_cpu = 1
+        max_res_mem = 100
+        min_res_mem = 10
         node_amt = 3
         node_max = 6
         machine_type = "n1-standard-2"
